@@ -1,0 +1,56 @@
+package 数组;
+/*
+ * 852. 山脉数组的峰顶索引
+难度
+简单
+
+我们把符合下列属性的数组 A 称作山脉：
+A.length >= 3
+存在 0 < i < A.length - 1 使得A[0] < A[1] < ... A[i-1] < A[i] > A[i+1] > ... > A[A.length - 1]
+给定一个确定为山脉的数组，返回任何满足 A[0] < A[1] < ... A[i-1] < A[i] > A[i+1] > ... > A[A.length - 1] 的 i 的值。
+ 
+示例 1：
+输入：[0,1,0]
+输出：1
+示例 2：
+输入：[0,2,1,0]
+输出：1
+ 
+提示：
+3 <= A.length <= 10000
+0 <= A[i] <= 10^6
+A 是如上定义的山脉
+ */
+public class Solution852 {
+    public int peakIndexInMountainArray(int[] A) {
+    	//头尾双指针法
+        /*int l=0,r=A.length-1;
+        while(l<r){
+            if(A[l+1]>A[l]&&A[r]<A[r-1]){
+                l++;
+                r--;
+            }else if(A[r]<A[r-1]){
+                r--;
+            }else if(A[l+1]>A[l]){
+                l++;
+            }
+        }
+        return l;*/
+    	
+    	//二分法
+        int l = 0,r = A.length-1;
+        while(l<r){
+            int mid = l+(r-l)/2;
+            if(A[mid+1]<A[mid]&&A[mid]>A[mid-1]){
+                return mid;
+            }else if(A[mid]<A[mid-1]){
+                r = mid;
+            }else if(A[mid+1]>A[mid]){
+                l = mid;
+            }
+            
+        }
+        return l;
+
+    }
+}
